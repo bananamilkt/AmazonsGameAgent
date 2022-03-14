@@ -165,8 +165,10 @@ public class GraphSearchAgent {
 
     private int[] global_parliament() throws InterruptedException{
         ArrayList<int[]> actionBundle = new ArrayList<int[]>();
+        //THIS WILL HAVE REALLY MANY ACTIONS
         actionBundle.addAll(DEPTH1_1OVER4);
-        actionBundle.addAll(DEPTH2_1OVER4);
+        //THIS WILL HAVE INFINIT ACTIONS
+        //actionBundle.addAll(DEPTH2_1OVER4);
         actionBundle.addAll(ALPHA_BETA_05);
         actionBundle.addAll(ALPHA_BETA_06);
         actionBundle.addAll(ALPHA_BETA_07);

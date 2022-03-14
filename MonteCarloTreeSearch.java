@@ -116,6 +116,7 @@ public class MonteCarloTreeSearch {
                     winning[threads.size()-1]=0;
                     for(int k=0; k<depth; k++){
                         winning[threads.size()-1]=simulateSequence(s, nextTurn(nextTurn(startTurn)))+winning[threads.size()-1];
+                        System.out.print(">");
                     }
                 }
             });
