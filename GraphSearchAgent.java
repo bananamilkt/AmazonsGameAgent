@@ -128,7 +128,6 @@ public class GraphSearchAgent {
         return global_parliament();
     }
 
-
     private void depth1_chess_terminal(ArrayList<State> SEL_PossibleStates_depth1){
         int[] action=new int[6];
         int OPP_rootTerminal1_4=OPPTerminalCheck1_4(root);
@@ -164,11 +163,16 @@ public class GraphSearchAgent {
         return PossibleStates.get(random_index).action;
     }
 
-    private int[] global_parliament(){
-        if(!DEPTH1_1OVER4.isEmpty()){return DEPTH1_1OVER4.get(0);}
-        if(!DEPTH2_1OVER4.isEmpty()){return DEPTH2_1OVER4.get(0);}
-        if(!isEmpty(minmax_parliament())){return minmax_parliament();}
-        return RANDOM_ACTION.get(0);
+    private int[] global_parliament() throws InterruptedException{
+        ArrayList<int[]> actionBundle = new ArrayList<int[]>();
+        actionBundle.addAll(DEPTH1_1OVER4);
+        actionBundle.addAll(DEPTH2_1OVER4);
+        actionBundle.addAll(ALPHA_BETA_05);
+        actionBundle.addAll(ALPHA_BETA_06);
+        actionBundle.addAll(ALPHA_BETA_07);
+        actionBundle.addAll(ALPHA_BETA_08);
+        MonteCarloTreeSearch agentPlayer = new MonteCarloTreeSearch(chessMat,startTurn,-1);
+        return agentPlayer.getAction(actionBundle);
     }
     private int[] minmax_parliament(){
         int maxAgreed=1;

@@ -5,11 +5,12 @@ public class MonteCarloTreeSearch {
     private ChessMat chessMat;
     private int startTurn;
     private int depth;
+    private ArrayList<int[]> inputActions;
 
     public MonteCarloTreeSearch(ChessMat chessMat,int startTurn,int unkown){
         this.chessMat=new ChessMat(chessMat);
         this.startTurn=startTurn;
-            this.depth=512;
+        this.depth=512;
     }
 
     public int[] getAction() throws InterruptedException{
@@ -83,6 +84,46 @@ public class MonteCarloTreeSearch {
             t.start();
         }
         for(Thread t:threads2){
+            try{t.join();}catch(InterruptedException e){e.printStackTrace();}
+        }
+
+        for(int k=0; k<winning.length;k++){
+            if(winning[k]>max_winning){
+                max_winning=winning[k];
+                max_winning_state=subStates.get(k);
+            }
+        }
+   
+        return max_winning_state.action;
+    }
+    public int[] getAction(ArrayList<int[]> possibleActions) throws InterruptedException{
+        State root = new State(chessMat,-1,null,null);
+        ArrayList<State> subStates = new ArrayList<State>();
+        ArrayList<Thread> threads = new ArrayList<Thread>();
+        inputActions = possibleActions;
+        double max_winning=0;
+
+        for(int[] action:possibleActions){
+            subStates.add(State.applyAction(root, action));
+        }
+        State max_winning_state=subStates.get(0);
+        int[] winning = new int[subStates.size()];
+
+        for(State s:subStates){
+            threads.add(new Thread(){
+                @Override
+                public void run(){
+                    winning[threads.size()-1]=0;
+                    for(int k=0; k<depth; k++){
+                        winning[threads.size()-1]=simulateSequence(s, nextTurn(nextTurn(startTurn)))+winning[threads.size()-1];
+                    }
+                }
+            });
+        }
+        for(Thread t:threads){
+            t.start();
+        }
+        for(Thread t:threads){
             try{t.join();}catch(InterruptedException e){e.printStackTrace();}
         }
 
