@@ -21,7 +21,13 @@ public class GraphSearchAgent {
         this.startTurn=startTurn;
         this.root=new State(chessMat,-1,null,null);
         this.actions=new int[12][6];
-        
+        this.DEPTH1_1OVER4=new ArrayList<int[]>();
+        this.DEPTH2_1OVER4=new ArrayList<int[]>();
+        this.ALPHA_BETA_05=new ArrayList<int[]>();
+        this.ALPHA_BETA_06=new ArrayList<int[]>();
+        this.ALPHA_BETA_07=new ArrayList<int[]>();
+        this.ALPHA_BETA_08=new ArrayList<int[]>();
+        this.RANDOM_ACTION=new ArrayList<int[]>();
     }
 
     public int[] getAction() throws InterruptedException{
@@ -33,10 +39,10 @@ public class GraphSearchAgent {
         //THREADS DECLARE
         Thread depth1_chess_terminal;
         Thread depth2_chess_terminal;
-        Thread alpha_beta_search008_backup;
-        Thread alpha_beta_search006_backup;
         Thread alpha_beta_search005_backup;
+        Thread alpha_beta_search006_backup;
         Thread alpha_beta_search007_backup;
+        Thread alpha_beta_search008_backup;
         Thread random_action_backup;
  
         depth1_chess_terminal = new Thread(){
@@ -53,11 +59,11 @@ public class GraphSearchAgent {
                 System.out.print(">");
             }        
         };
-        alpha_beta_search008_backup = new Thread(){
+        alpha_beta_search005_backup = new Thread(){
             @Override
             public void run(){
-                MinMaxSearchAgent agentPlayer = new MinMaxSearchAgent(chessMat,startTurn,C.MINMAX_AGENT_PLAYER008);
-                ALPHA_BETA_08.add(agentPlayer.getAction());
+                MinMaxSearchAgent agentPlayer = new MinMaxSearchAgent(chessMat,startTurn,C.MINMAX_AGENT_PLAYER005);
+                ALPHA_BETA_05.add(agentPlayer.getAction());
                 System.out.print(">");
             }        
         };
@@ -69,14 +75,6 @@ public class GraphSearchAgent {
                 System.out.print(">");
             }        
         };
-        alpha_beta_search005_backup = new Thread(){
-            @Override
-            public void run(){
-                MinMaxSearchAgent agentPlayer = new MinMaxSearchAgent(chessMat,startTurn,C.MINMAX_AGENT_PLAYER005);
-                ALPHA_BETA_05.add(agentPlayer.getAction());
-                System.out.print(">");
-            }        
-        };
         alpha_beta_search007_backup = new Thread(){
             @Override
             public void run(){
@@ -85,10 +83,18 @@ public class GraphSearchAgent {
                 System.out.print(">");
             }        
         };
+        alpha_beta_search008_backup = new Thread(){
+            @Override
+            public void run(){
+                MinMaxSearchAgent agentPlayer = new MinMaxSearchAgent(chessMat,startTurn,C.MINMAX_AGENT_PLAYER008);
+                ALPHA_BETA_08.add(agentPlayer.getAction());
+                System.out.print(">");
+            }        
+        };
         random_action_backup  = new Thread(){
             @Override
             public void run(){
-                actions[RANDOM_ACTION]=getRandomAction();
+                RANDOM_ACTION.add(getRandomAction());
                 System.out.print(">");
             }              
         };
@@ -97,10 +103,10 @@ public class GraphSearchAgent {
         try{
         depth1_chess_terminal.start();
         depth2_chess_terminal.start();
-        alpha_beta_search008_backup.start();
-        alpha_beta_search006_backup.start();
         alpha_beta_search005_backup.start();
+        alpha_beta_search006_backup.start();
         alpha_beta_search007_backup.start();
+        alpha_beta_search008_backup.start();
         random_action_backup.start();
         }catch(RuntimeException e){
             e.printStackTrace();
@@ -110,10 +116,10 @@ public class GraphSearchAgent {
         try{
             depth1_chess_terminal.join();
             depth2_chess_terminal.join();
-            alpha_beta_search008_backup.join();
-            alpha_beta_search006_backup.join();
             alpha_beta_search005_backup.join();
+            alpha_beta_search006_backup.join();
             alpha_beta_search007_backup.join();
+            alpha_beta_search008_backup.join();
             random_action_backup.join();
         }catch(InterruptedException e){
             e.printStackTrace();
@@ -159,17 +165,24 @@ public class GraphSearchAgent {
     }
 
     private int[] global_parliament(){
-        if(!isEmpty(actions[DEPTH1_1OVER4])){return actions[DEPTH1_1OVER4];}
-        if(!isEmpty(actions[DEPTH2_1OVER4])){return actions[DEPTH2_1OVER4];}
+        if(!DEPTH1_1OVER4.isEmpty()){return DEPTH1_1OVER4.get(0);}
+        if(!DEPTH2_1OVER4.isEmpty()){return DEPTH2_1OVER4.get(0);}
         if(!isEmpty(minmax_parliament())){return minmax_parliament();}
-        return actions[RANDOM_ACTION];
+        return RANDOM_ACTION.get(0);
     }
     private int[] minmax_parliament(){
         int maxAgreed=1;
-        int[] maxAgreedAction=actions[ALPHA_BETA_08];
-        for(int i=ALPHA_BETA_08; i<=ALPHA_BETA_07; i++){
+        int[] maxAgreedAction=ALPHA_BETA_08.get(0);
+
+        ArrayList<int[]> MINMAXACTIONS = new ArrayList<int[]>();
+        MINMAXACTIONS.add(ALPHA_BETA_08.get(0));
+        MINMAXACTIONS.add(ALPHA_BETA_06.get(0));
+        MINMAXACTIONS.add(ALPHA_BETA_05.get(0));
+        MINMAXACTIONS.add(ALPHA_BETA_07.get(0));
+
+        for(int i=0; i<=MINMAXACTIONS.size(); i++){
             int actionAgreed=0;
-            for(int j=i; j<=ALPHA_BETA_07; j++){
+            for(int j=i; j<MINMAXACTIONS.size(); j++){
                 if(isEqual(actions[i], actions[j])){actionAgreed++;}
             }
             if(actionAgreed>maxAgreed){

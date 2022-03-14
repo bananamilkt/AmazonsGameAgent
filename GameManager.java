@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
 
 public class GameManager{
     public static Scanner input;
