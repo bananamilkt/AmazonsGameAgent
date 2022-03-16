@@ -6,7 +6,7 @@ public class GameManager{
     public static final boolean DISPLAY_DETAIL =    true;
     public static final boolean DISPLAY_NONE =      false;
     public static void main(String []args) {
-        run(C.AMAZONS_CHESS_MAT, C.AMAZON_AGENT_PLAYER_X_, C.GRAPH_AGENT_PLAYER012,DISPLAY_DETAIL);
+        run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER006, C.GRAPH_AGENT_PLAYER012,DISPLAY_DETAIL);
         close();
     }
 
