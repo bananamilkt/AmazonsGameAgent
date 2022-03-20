@@ -20,8 +20,14 @@ public class MinMaxSearchAgent {
 
     public int[] getAction(){
         State root = new State(chessMat,-1,null,null);
+        State state = root;
         //State state=MinMaxSearch(root, startTurn, startTurn, SEARCH_DEPTH_LIMIT);
-        State state=AlphaBetaSearch(root, startTurn, startTurn, SEARCH_DEPTH_LIMIT, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE);
+        if(agentPlaterType==C.MINMAX_AGENT_PLAYER013){
+            state=AlphaBetaSearch(root, startTurn, startTurn, 1, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE);
+        }else{
+            state=AlphaBetaSearch(root, startTurn, startTurn, SEARCH_DEPTH_LIMIT, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE);
+        }
+
         //State state=StateLimitedSearch(root, startTurn, startTurn, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE, SEARCH_STATE_LIMIT);
         //State state=DpethStateLimitedSearch(root, startTurn, startTurn, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE, LIMITED_SEARCH_STATE_LIMIT, LIMITED_SEARCH_DEPTH_LIMIT);
         //State state=constantStateSearch(root, startTurn, startTurn, SEARCH_DEPTH_LIMIT, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE, CONSTANT_STATE_LIMIT);
@@ -592,6 +598,22 @@ public class MinMaxSearchAgent {
                 }
                 return 0-opp_f_value;
             }
+        }  
+//MINMAX_AGENT_PLAYER013      
+        if(agentPlaterType==C.MINMAX_AGENT_PLAYER013){
+            ArrayList<Position> selchesses=new ArrayList<Position>();
+            ArrayList<Position> oppchesses=new ArrayList<Position>();
+            if(currentTurn==C.WHITE_MOVE || currentTurn==C.WHITE_BLOC){
+                selchesses = chessMat.getAllTypeChessPositions(C.WHITE_QUEEN);
+                oppchesses = chessMat.getAllTypeChessPositions(C.BLACK_QUEEN);
+            }else{
+                selchesses = chessMat.getAllTypeChessPositions(C.BLACK_QUEEN);
+                oppchesses = chessMat.getAllTypeChessPositions(C.WHITE_QUEEN);
+            }
+            double T=-999;
+            for(Position c:selchesses){T=T+chessMat.getTerritoryScore(c);}
+            for(Position c:oppchesses){T=T-chessMat.getTerritoryScore(c);}
+            return (int)T;
         }       
         return C.DEFAULT_F_VALUE;
     }

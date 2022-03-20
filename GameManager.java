@@ -5,12 +5,12 @@ public class GameManager{
     public static Scanner input;
     public static final boolean DISPLAY_DETAIL =    true;
     public static final boolean DISPLAY_NONE =      false;
-    public static void main(String []args) {
-        run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER006, C.GRAPH_AGENT_PLAYER012,DISPLAY_DETAIL);
+    public static void main(String []args) throws InterruptedException {
+        run(C.AMAZONS_CHESS_MAT, C.GRAPH_AGENT_PLAYER012, C.AMAZON_AGENT_PLAYER_Y_,DISPLAY_DETAIL);
         close();
     }
 
-    public static int run(int chessMatTYpe, int whitePlayerType, int blackPlayerType, boolean displayDetail){
+    public static int run(int chessMatTYpe, int whitePlayerType, int blackPlayerType, boolean displayDetail) throws InterruptedException{
         long startTime=System.nanoTime();
         ChessMat chessMat;
         int currentTurn = C.WHITE_MOVE; 
@@ -114,7 +114,7 @@ public class GameManager{
         }
         return actionList;
     }
-    private static int[] askAgentPlayerMove(ChessMat chessMat, int currentTurn,int agentPlaterType, boolean displayDetail){
+    private static int[] askAgentPlayerMove(ChessMat chessMat, int currentTurn,int agentPlaterType, boolean displayDetail) throws InterruptedException{
         long startTime=System.nanoTime();
         boolean valid = false;
         int[] actionSequence=new int[6];
@@ -133,6 +133,9 @@ public class GameManager{
                 try{actionSequence=agentPlayer.getAction();}catch(InterruptedException e){e.printStackTrace();}
             }else if(agentPlaterType==199){
                 SearchAgentX agentPlayer = new SearchAgentX(chessMat,currentTurn,agentPlaterType);
+                actionSequence=agentPlayer.getAction();
+            }else if(agentPlaterType==197){
+                SearchAgentY agentPlayer = new SearchAgentY(chessMat,currentTurn,agentPlaterType);
                 actionSequence=agentPlayer.getAction();
             }else{
                 MinMaxSearchAgent agentPlayer = new MinMaxSearchAgent(chessMat,currentTurn,agentPlaterType);

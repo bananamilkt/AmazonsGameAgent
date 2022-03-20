@@ -53,6 +53,53 @@ public class State {
 
         return possibleStates;
     }
+    public ArrayList<State> getAllPossibleStates(int gameStage, boolean ignoreClosed){
+        ArrayList<State> possibleStates = new ArrayList<State>();
+        ArrayList<Position> allMoveableChess = new ArrayList<Position>();
+        int[] action = new int[6];
+        if(gameStage==C.WHITE_MOVE){
+            allMoveableChess = this.chessMat.getAllTypeChessPositions(C.WHITE_QUEEN);
+            for(int i=allMoveableChess.size()-1; i>=0; i--){
+                if(this.chessMat.isClosed(allMoveableChess.get(i))){
+                    allMoveableChess.remove(i);
+                }
+            }
+        }else{
+            allMoveableChess = this.chessMat.getAllTypeChessPositions(C.BLACK_QUEEN);
+            for(int i=allMoveableChess.size()-1; i>=0; i--){
+                if(this.chessMat.isClosed(allMoveableChess.get(i))){
+                    allMoveableChess.remove(i);
+                }
+            }
+        }
+        
+        if(allMoveableChess.isEmpty()){return possibleStates;}
+
+        ArrayList<Position> moveablePositions;
+        for(Position chess : allMoveableChess){
+            moveablePositions = this.chessMat.getAllMoveablePositionsForChess(chess);
+            for(Position moveablePosition : moveablePositions){
+                ChessMat pasteChessMat = new ChessMat(this.chessMat);
+                pasteChessMat.overWrite(this.chessMat.getChess(chess),moveablePosition);
+                pasteChessMat.overWrite(C.EMPTY_BLOCK,chess);
+                ArrayList<Position> blocablePositions;
+                blocablePositions = pasteChessMat.getAllMoveablePositionsForChess(moveablePosition);
+                for(Position blocablePosition : blocablePositions){
+                    ChessMat pasteBlocChessMat = new ChessMat(pasteChessMat);
+                    pasteBlocChessMat.overWrite(C.AMAZON_BLOCK,blocablePosition);
+                    action[C.FROM_X]=chess.x;
+                    action[C.FROM_Y]=chess.y;
+                    action[C.TO_X]=moveablePosition.x;
+                    action[C.TO_Y]=moveablePosition.y;
+                    action[C.BLOC_X]=blocablePosition.x;
+                    action[C.BLOC_Y]=blocablePosition.y;
+                    possibleStates.add(new State(pasteBlocChessMat,C.DEFAULT_F_VALUE,this,action));
+                }
+            }
+        }
+
+        return possibleStates;
+    }
     public ArrayList<State> getAllPossibleStates(int gameStage,int limit){
         ArrayList<State> possibleStates = new ArrayList<State>();
         ArrayList<Position> allMoveableChess = new ArrayList<Position>();
@@ -86,6 +133,32 @@ public class State {
                         return possibleStates;
                     }
                 }
+            }
+        }
+
+        return possibleStates;
+    }
+    public ArrayList<State> getAllPossibleStatesForChess(int gameStage, Position chess){
+        ArrayList<State> possibleStates = new ArrayList<State>();
+        int[] action = new int[6];
+        ArrayList<Position> moveablePositions;
+        moveablePositions = this.chessMat.getAllMoveablePositionsForChess(chess);
+        for(Position moveablePosition : moveablePositions){
+            ChessMat pasteChessMat = new ChessMat(this.chessMat);
+            pasteChessMat.overWrite(this.chessMat.getChess(chess),moveablePosition);
+            pasteChessMat.overWrite(C.EMPTY_BLOCK,chess);
+            ArrayList<Position> blocablePositions;
+            blocablePositions = pasteChessMat.getAllMoveablePositionsForChess(moveablePosition);
+            for(Position blocablePosition : blocablePositions){
+                ChessMat pasteBlocChessMat = new ChessMat(pasteChessMat);
+                pasteBlocChessMat.overWrite(C.AMAZON_BLOCK,blocablePosition);
+                action[C.FROM_X]=chess.x;
+                action[C.FROM_Y]=chess.y;
+                action[C.TO_X]=moveablePosition.x;
+                action[C.TO_Y]=moveablePosition.y;
+                action[C.BLOC_X]=blocablePosition.x;
+                action[C.BLOC_Y]=blocablePosition.y;
+                possibleStates.add(new State(pasteBlocChessMat,C.DEFAULT_F_VALUE,this,action));
             }
         }
 

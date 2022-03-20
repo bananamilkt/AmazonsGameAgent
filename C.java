@@ -44,6 +44,7 @@ public class C{
     "AGENT_PLAYER010",
     "AGENT_PLAYER011",
     "AGENT_PLAYER012",
+    "AGENT_PLAYER013",
     "AGENT_PLAYER000",
     "AGENT_PLAYER000",
     "AGENT_PLAYER000",
@@ -67,8 +68,7 @@ public class C{
     "AGENT_PLAYER000",
     "AGENT_PLAYER000",
     "AGENT_PLAYER000",
-    "AGENT_PLAYER000",
-    "AGENT_PLAYER000",
+    "AGENT_PLAYER[Y]",
     "AGENT_PLAYERMCT",
     "AGENT_PLAYER[X]",
     "RANDOM_AGENT",};
@@ -90,7 +90,9 @@ public class C{
     public static final int MINMAX_AGENT_PLAYER010  =       170;
     public static final int MINMAX_AGENT_PLAYER011  =       171;
     public static final int GRAPH_AGENT_PLAYER012 =         172;
+    public static final int MINMAX_AGENT_PLAYER013 =        173;
 
+    public static final int AMAZON_AGENT_PLAYER_Y_ =        197;
     public static final int MONTE_CARLO_PLAYER =            198;
     public static final int AMAZON_AGENT_PLAYER_X_ =        199;
     public static final int RANDOM_AGENT  =                 200;
@@ -119,6 +121,11 @@ public class C{
     public static final int DOWN_LEFT =                     7;
     public static final int MOVEABLE =                      1;
     public static final int UNMOVEABLE =                    -1;
+
+    //TERRITORY
+    public static final int WHITE =                         0;
+    public static final int BLACK =                         1;
+    public static final int CONTROLED_BLOCKS =              2;
 
 
 }

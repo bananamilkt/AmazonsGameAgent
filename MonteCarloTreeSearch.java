@@ -10,7 +10,7 @@ public class MonteCarloTreeSearch {
     public MonteCarloTreeSearch(ChessMat chessMat,int startTurn,int unkown){
         this.chessMat=new ChessMat(chessMat);
         this.startTurn=startTurn;
-        this.depth=512;
+        this.depth=1024;
     }
 
     public int[] getAction() throws InterruptedException{
