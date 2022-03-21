@@ -22,7 +22,7 @@ public class MinMaxSearchAgent {
         State root = new State(chessMat,-1,null,null);
         State state = root;
         //State state=MinMaxSearch(root, startTurn, startTurn, SEARCH_DEPTH_LIMIT);
-        if(agentPlaterType==C.MINMAX_AGENT_PLAYER013){
+        if(agentPlaterType==C.MINMAX_AGENT_PLAYER013 || agentPlaterType==C.MINMAX_AGENT_PLAYER014 || agentPlaterType==C.MINMAX_AGENT_PLAYER015){
             state=AlphaBetaSearch(root, startTurn, startTurn, 1, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE);
         }else{
             state=AlphaBetaSearch(root, startTurn, startTurn, SEARCH_DEPTH_LIMIT, C.DEFAULT_MAX_F_VALUE, C.DEFAULT_MIN_F_VALUE);
@@ -614,9 +614,39 @@ public class MinMaxSearchAgent {
             for(Position c:selchesses){T=T+chessMat.getTerritoryScore(c);}
             for(Position c:oppchesses){T=T-chessMat.getTerritoryScore(c);}
             return (int)T;
+        }    
+//MINMAX_AGENT_PLAYER014         
+        if(agentPlaterType==C.MINMAX_AGENT_PLAYER014){
+            ArrayList<Position> selchesses=new ArrayList<Position>();
+            ArrayList<Position> oppchesses=new ArrayList<Position>();
+            if(currentTurn==C.WHITE_MOVE || currentTurn==C.WHITE_BLOC){
+                selchesses = chessMat.getAllTypeChessPositions(C.WHITE_QUEEN);
+                oppchesses = chessMat.getAllTypeChessPositions(C.BLACK_QUEEN);
+            }else{
+                selchesses = chessMat.getAllTypeChessPositions(C.BLACK_QUEEN);
+                oppchesses = chessMat.getAllTypeChessPositions(C.WHITE_QUEEN);
+            }
+            double T=-999;
+            for(Position c:selchesses){T=T-chessMat.getTerritoryScore(c);}
+            return (int)T;
         }       
-        return C.DEFAULT_F_VALUE;
-    }
+//MINMAX_AGENT_PLAYER015        
+    if(agentPlaterType==C.MINMAX_AGENT_PLAYER015){
+        ArrayList<Position> selchesses=new ArrayList<Position>();
+        ArrayList<Position> oppchesses=new ArrayList<Position>();
+        if(currentTurn==C.WHITE_MOVE || currentTurn==C.WHITE_BLOC){
+            selchesses = chessMat.getAllTypeChessPositions(C.WHITE_QUEEN);
+            oppchesses = chessMat.getAllTypeChessPositions(C.BLACK_QUEEN);
+        }else{
+            selchesses = chessMat.getAllTypeChessPositions(C.BLACK_QUEEN);
+            oppchesses = chessMat.getAllTypeChessPositions(C.WHITE_QUEEN);
+        }
+        double T=-999;
+        for(Position c:oppchesses){T=T+chessMat.getTerritoryScore(c);}
+        return (int)T;
+    }       
+    return C.DEFAULT_F_VALUE;
+}
 
     private int nextTurn(int currentTurn){
         if(currentTurn==C.WHITE_MOVE){

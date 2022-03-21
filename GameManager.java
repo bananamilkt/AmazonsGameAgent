@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,11 +7,12 @@ public class GameManager{
     public static final boolean DISPLAY_DETAIL =    true;
     public static final boolean DISPLAY_NONE =      false;
     public static void main(String []args) throws InterruptedException {
-        run(C.AMAZONS_CHESS_MAT, C.GRAPH_AGENT_PLAYER012, C.AMAZON_AGENT_PLAYER_Y_,DISPLAY_DETAIL);
+        runMINMAXGROUPVSRANDOM(36);
+    
         close();
     }
 
-    public static int run(int chessMatTYpe, int whitePlayerType, int blackPlayerType, boolean displayDetail) throws InterruptedException{
+    public static int Run(int chessMatTYpe, int whitePlayerType, int blackPlayerType, boolean displayDetail) throws InterruptedException{
         long startTime=System.nanoTime();
         ChessMat chessMat;
         int currentTurn = C.WHITE_MOVE; 
@@ -245,5 +247,229 @@ public class GameManager{
             System.out.println("["+C.PLAYER_TYPE[whitePlayerType-160]+"_WIN && "+C.PLAYER_TYPE[blackPlayerType-160]+"_LOSE]");
             return 1;
         }
+    }
+
+    //Running tests
+    private static void runMINMAXGROUPVSRANDOM(int limit) throws InterruptedException{
+        int[] mark=new int[14];
+        for(int i=0; i<mark.length; i++){mark[i]=0;}
+
+        Thread t1 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[0]=mark[0]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER001, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t2 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[1]=mark[1]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER002, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t3 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[2]=mark[2]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER003, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t4 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[3]=mark[3]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER004, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t5 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[4]=mark[4]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER005, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t6 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[5]=mark[5]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER006, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t7 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[6]=mark[6]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER007, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t8 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[7]=mark[7]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER008, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t9 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[8]=mark[8]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER009, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t10 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[9]=mark[9]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER010, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t11 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[10]=mark[10]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER011, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t12 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[11]=mark[11]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER013, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t13 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[12]=mark[12]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER014, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        Thread t14 = new Thread(){
+            @Override
+            public void run()
+                {for(int i=0; i<limit; i++){
+                    try {
+                        mark[13]=mark[13]+Run(C.AMAZONS_CHESS_MAT, C.MINMAX_AGENT_PLAYER015, C.RANDOM_AGENT,DISPLAY_NONE);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+        t5.start();
+        t6.start();
+        t7.start();
+        t8.start();
+        t9.start();
+        t10.start();
+        t11.start();
+        t12.start();
+        t13.start();
+        t14.start();
+
+        t1.join();
+        t2.join();
+        t3.join();
+        t4.join();
+        t5.join();
+        t6.join();
+        t7.join();
+        t8.join();
+        t9.join();
+        t10.join();
+        t11.join();
+        t12.join();
+        t13.join();
+        t14.join();
+
+        for(int i=0; i<11; i++){System.out.println(C.PLAYER_TYPE[i+1] + "->"+ mark[i]);}
+        System.out.println(C.PLAYER_TYPE[12+1] + "->"+ mark[11]);
+        System.out.println(C.PLAYER_TYPE[13+1] + "->"+ mark[12]);
+        System.out.println(C.PLAYER_TYPE[14+1] + "->"+ mark[13]);
     }
 }

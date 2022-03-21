@@ -45,8 +45,8 @@ public class C{
     "AGENT_PLAYER011",
     "AGENT_PLAYER012",
     "AGENT_PLAYER013",
-    "AGENT_PLAYER000",
-    "AGENT_PLAYER000",
+    "AGENT_PLAYER014",
+    "AGENT_PLAYER015",
     "AGENT_PLAYER000",
     "AGENT_PLAYER000",
     "AGENT_PLAYER000",
@@ -91,6 +91,8 @@ public class C{
     public static final int MINMAX_AGENT_PLAYER011  =       171;
     public static final int GRAPH_AGENT_PLAYER012 =         172;
     public static final int MINMAX_AGENT_PLAYER013 =        173;
+    public static final int MINMAX_AGENT_PLAYER014 =        174;
+    public static final int MINMAX_AGENT_PLAYER015 =        175;
 
     public static final int AMAZON_AGENT_PLAYER_Y_ =        197;
     public static final int MONTE_CARLO_PLAYER =            198;
@@ -129,14 +131,33 @@ public class C{
 
 
 }
-// AGENT_PLAYER006:      5
-// AGENT_PLAYER008:      5
-// AGENT_PLAYER005:      3
-// AGENT_PLAYER007:      1
-// AGENT_PLAYER002:     -1
-// AGENT_PLAYER001:     -3
-// AGENT_PLAYER004:     -3
-// AGENT_PLAYER009:     -3
-// AGENT_PLAYER010:     -5
-// AGENT_PLAYER011:     -5
-// AGENT_PLAYER003:     -9
+
+//                       INGROUP    RANDOM/24  
+// AGENT_PLAYER006:      5          22          
+// AGENT_PLAYER008:      5          24
+// AGENT_PLAYER005:      3          24
+// AGENT_PLAYER007:      1          24
+// AGENT_PLAYER002:     -1          20
+// AGENT_PLAYER001:     -3          4
+// AGENT_PLAYER004:     -3          14
+// AGENT_PLAYER009:     -3          18
+// AGENT_PLAYER010:     -5         -18
+// AGENT_PLAYER011:     -5          20
+// AGENT_PLAYER003:     -9         -18 
+// AGENT_PLAYER013:      X         -22
+      
+//                       RANDOM/8   RANDOM/10   RANDOM/36
+// AGENT_PLAYER001:      6          8           28/36
+// AGENT_PLAYER002:      6          8           26/36
+// AGENT_PLAYER003:      X         -10         -28/36
+// AGENT_PLAYER004:      8          8           34/36
+// AGENT_PLAYER005:      8          10          36/36
+// AGENT_PLAYER006:      8          10          34/36
+// AGENT_PLAYER007:      8          8           32/36
+// AGENT_PLAYER008:      6          10          36/36
+// AGENT_PLAYER009:      8          8           30/36
+// AGENT_PLAYER010:      X         -8          -28/36
+// AGENT_PLAYER011:      8          10          26/36
+// AGENT_PLAYER013:      X         -10         -30/36
+// AGENT_PLAYER014:     -6          4            2/36
+// AGENT_PLAYER015:      X          X          -36/36 
